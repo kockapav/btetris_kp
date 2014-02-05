@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'btetris_kp/btetris'
+
+BTetrisKp::BTetrisWindow.new.show

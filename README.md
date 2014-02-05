@@ -1,4 +1,29 @@
-btetris_kp
-==========
+# BtetrisKp
 
-Repository for Battle Tetris, tetris for 2 players playable via lan, written in Ruby and published as a ruby gem
+Battle Tetris - tetris game for 2 player via lan
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+    gem 'btetris_kp'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install btetris_kp
+
+## Usage
+
+run btetris_kp
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
