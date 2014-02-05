@@ -1,5 +1,5 @@
-require "btetris_kp/menu"
-require "btetris_kp/core/piece"
+require 'btetris_kp/menu'
+require 'btetris_kp/core/piece'
 
 module BTetrisKp
   # class representing one tetris board
@@ -15,11 +15,14 @@ module BTetrisKp
       @posx2 = posx + Const::PNR_HOR * @tile_size
       @posy = posy
       @posy2 = posy + Const::PNR_VER * @tile_size
+
+      # initializes board array and current piece
       @board = Array.new(Const::PNR_VER) { Array.new(Const::PNR_HOR, 0) }
       @cur_piece = Piece.new(@board, 0, Const::PNR_HOR / 3 + 1, rand(Const::TILES.size))
     end
 
-    # adds new piece on board
+    # generates new piece,
+    # current piece is set on board and replaced by new one
     def new_piece!
       @cur_piece.set_on_board
       @cur_piece = Piece.new(@board, 0, Const::PNR_HOR / 3 + 1, rand(Const::TILES.size))
@@ -28,13 +31,9 @@ module BTetrisKp
     # checks whether piece can move down
     def piece_stuck?
       @cur_piece.move_down!
-      if @cur_piece.can_be_set?
-        @cur_piece.move_up!
-        return false
-      else
-        @cur_piece.move_up!
-        return true
-      end
+      can_be_set = @cur_piece.can_be_set?
+      @cur_piece.move_up!
+      !can_be_set
     end
 
     # moves piece left
@@ -63,7 +62,7 @@ module BTetrisKp
       false
     end
 
-    # drops peace down
+    # drops peace down as far as possible
     def piece_drop!
       @cur_piece.move_down! while @cur_piece.can_be_set?
       @cur_piece.move_up!
@@ -94,8 +93,8 @@ module BTetrisKp
     # fills row randomly with blocks and spaces
     # atleast one block has to be empty space
     def fill_row_randomly(index)
-      @board[index].each_with_index do
-        |val, x| @board[index][x] = rand(Const::TILE_COLORS_NR + 1)
+      @board[index].each_with_index do |val, x|
+        @board[index][x] = rand(Const::TILE_COLORS_NR + 1)
       end
       @board[index][rand(Const::PNR_HOR)] = 0
     end
@@ -111,7 +110,7 @@ module BTetrisKp
     end
 
     # moves down all rows with smaller index then row_index,
-    # removing row_index row content in the process
+    # removing row at row_index content in the process
     def clear_row!(row_index)
       for index in row_index.downto(0) do
         copy_row(index - 1, index)
@@ -122,9 +121,7 @@ module BTetrisKp
     def clear_rows!
       cnt = 0
       @board.each_with_index do |row, index|
-        full_row = true
-        row.each { |val| full_row = false if val == 0 }
-        if full_row
+        unless row.include?(0)
           clear_row!(index)
           cnt += 1
         end
@@ -134,8 +131,7 @@ module BTetrisKp
 
     # checks if game is over
     def game_over?
-      return true unless @cur_piece.can_be_set?
-      false
+      !@cur_piece.can_be_set?
     end
 
     # draws board border and background
@@ -199,18 +195,18 @@ module BTetrisKp
       @cur_piece.unset_on_board
     end
 
-    # returns string board with current piece
+    # loads board content from string
+    # !!! (expects board to contain only nrs from 0 to 9) !!!
+    def from_s!(state)
+      @board = state.split('').map { |i| i.to_i }.each_slice(Const::PNR_HOR).to_a
+    end
+
+    # returns string of board with current piece
     def get_board_s
       @cur_piece.set_on_board
       s = to_s
       @cur_piece.unset_on_board
       s
-    end
-
-    # loads board content from string
-    # !!! (expects board to contain only nrs from 0 to 9) !!!
-    def from_s!(state)
-      @board = state.split('').map { |i| i.to_i }.each_slice(Const::PNR_HOR).to_a
     end
 
     # converts board content to string

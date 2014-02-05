@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["kockapav@gmail.com"]
   spec.description   = %q{Battle Tetris}
   spec.summary       = %q{Tetris for 2 players via lan}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/kockapav/btetris_kp"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

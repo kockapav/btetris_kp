@@ -1,5 +1,5 @@
 require 'gosu'
-require "btetris_kp/constants"
+require 'btetris_kp/constants'
 
 module BTetrisKp
   # class representing input box for IP adress / port / text
@@ -23,19 +23,13 @@ module BTetrisKp
       text.upcase.gsub(@filter, '')
     end
 
+    # updates textfield, limits length of text to @maxlen
     def update
       self.text = text.slice(0...@maxlen) if text.size > @maxlen
     end
 
+    # draws textfield on window (gosu)
     def draw
-      #@window.draw_quad(@x - Const::BORDER_GAP,
-      #                  @y - Const::BORDER_GAP, Const::BOARD_BACK_CLR,
-      #                  @x + @width + Const::BORDER_GAP,
-      #                  @y - Const::BORDER_GAP, Const::BOARD_BACK_CLR,
-      #                  @x - Const::BORDER_GAP,
-      #                  @y + @font.height + Const::BORDER_GAP, Const::BOARD_BACK_CLR,
-      #                  @x + @width + Const::BORDER_GAP,
-      #                  @y + @font.height + Const::BORDER_GAP, Const::BOARD_BACK_CLR, 0)
       @window.draw_line(@x - Const::BORDER_GAP, @y + @font.height, Const::CARET_CLR,
                         @x + @width + 2 * Const::BORDER_GAP, @y + @font.height, Const::CARET_CLR)
       unless text.nil?
@@ -52,8 +46,10 @@ module BTetrisKp
 
     # returns true if mouse is over textfield
     def mouse_over?(mouse_x, mouse_y)
-      mouse_x >= x - Const::BORDER_GAP && mouse_x <= x + @width + Const::BORDER_GAP &&
-        mouse_y >= y - Const::BORDER_GAP && mouse_y <= y + @font.height + Const::BORDER_GAP
+      mouse_x >= x - Const::BORDER_GAP &&
+      mouse_x <= x + @width + Const::BORDER_GAP &&
+      mouse_y >= y - Const::BORDER_GAP &&
+      mouse_y <= y + @font.height + Const::BORDER_GAP
     end
 
     # moves the caret to the position specified by mouse

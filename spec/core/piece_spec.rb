@@ -36,6 +36,13 @@ module BTetrisKp
       end
     end
 
+    it 'can tell if piece can be placed on board or not' do
+      pi = Piece.new(@board.board, 0, 0, 0)
+      pi.can_be_set?.should eq true
+      @board.board[0][0] = 1
+      pi.can_be_set?.should eq false
+    end
+
     it 'can move piece left' do
       pi = Piece.new(@board.board, 4, 4, 0)
       pi.move_left!
@@ -60,7 +67,7 @@ module BTetrisKp
       pi.can_be_set?.should eq true
     end
 
-    it 'cant place piece on full board' do
+    it 'can not place piece on full board' do
       @board.board.each_with_index do |row, x|
         row.each_with_index do |val, y|
           @board.board[x][y] = 1
@@ -70,7 +77,7 @@ module BTetrisKp
       pi.can_be_set?.should eq false
     end
 
-    it 'cant place piece after moving on filled block' do
+    it 'can not place piece after moving on filled block' do
       @board.board[0][0] = 1
       pi = Piece.new(@board.board, 0, 1, 0)
       pi.can_be_set?.should eq true
@@ -78,13 +85,14 @@ module BTetrisKp
       pi.can_be_set?.should eq false
     end
 
-    it 'cant leave board borders when moving' do
+    it 'can not leave board borders when moving' do
       pi = Piece.new(@board.board, 0, 0, 0)
       pi.can_be_set?.should eq true
       pi.move_left!
-      pi.can_be_set?.should eq true
+      pi.can_be_set?.should eq false
+      pi.move_right!
       pi.move_up!
-      pi.can_be_set?.should eq true
+      pi.can_be_set?.should eq false
     end
 
     it 'can be set on board' do

@@ -1,4 +1,3 @@
-require 'gosu'
 require 'btetris_kp/menu'
 require 'btetris_kp/core/board'
 require 'btetris_kp/constants'
@@ -13,14 +12,15 @@ module BTetrisKp
       @window = window
       @font = Gosu::Font.new(@window, Gosu.default_font_name, 80)
       @board = Board.new(@window, x, y)
-      @paused = false
-      @game_over = false
-      @counter = 0
+      @paused, @game_over = false, false
       # press time, set 0 when left, right or down key is pressed
       # used for smoother controls in update method
-      @press_time = 0
-      @rows_cleared = 0
-      # sounds init
+      @counter, @press_time, @rows_cleared = 0, 0, 0
+      initialize_sounds
+    end
+
+    # initializes ingame sounds
+    def initialize_sounds
       @drop_snd = Gosu::Sample.new(@window, Const::PATH_SND_DROP)
       @clear_snd = Gosu::Sample.new(@window, Const::PATH_SND_POP)
       @rotate_snd = Gosu::Sample.new(@window, Const::PATH_SND_ROTATE)
@@ -41,6 +41,7 @@ module BTetrisKp
       @paused = !@paused
     end
 
+    # updates game
     def update
       unless @paused || @game_over
         @press_time += 1

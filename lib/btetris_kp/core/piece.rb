@@ -1,4 +1,4 @@
-require "btetris_kp/menu"
+require 'btetris_kp/constants'
 
 module BTetrisKp
   # class representing actual piece in game
@@ -15,22 +15,22 @@ module BTetrisKp
 
     # moves piece one block to the left
     def move_left!
-      @posy = @posy - 1 unless @posy - 1 < 0
+      @posy -= 1
     end
 
     # moves piece one block to the right
     def move_right!
-      @posy = @posy + 1 unless @posy + @piece[0].size + 1 > Const::PNR_HOR
+      @posy += 1
     end
 
     # moves piece one block up
     def move_up!
-      @posx = @posx - 1 unless @posx - 1 < 0
+      @posx -= 1
     end
 
     # moves piece one block down
     def move_down!
-      @posx = @posx + 1 unless @posx + @piece.size > Const::PNR_VER
+      @posx += 1
     end
 
     # rotates piece left
@@ -47,6 +47,7 @@ module BTetrisKp
 
     # returns true if there is no collision with peace on board
     def can_be_set?
+      return false if @posx < 0 || @posy < 0
       @piece.each_with_index do |row, x|
         row.each_with_index do |val, y|
           return false if @posx + x > Const::PNR_VER - 1 ||

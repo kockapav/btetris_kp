@@ -1,4 +1,3 @@
-require 'gosu'
 require 'btetris_kp/game'
 require 'btetris_kp/core/board'
 require 'btetris_kp/gui/menuitem'
@@ -12,17 +11,17 @@ module BTetrisKp
     def initialize(window)
       @window = window
       @font = Gosu::Font.new(@window, Gosu.default_font_name, 30)
-      # load title image and calculate position, size variables
-      p 
+      initialize_title_image
+      generate_back_board
+      generate_menu
+    end
+
+    # loads title image and calculates position, size variables
+    def initialize_title_image
       @title_image = Gosu::Image.new(@window, Const::PATH_IMAGE_TITLE, false)
       @img_size_factor = (@window.width - 50.0) / @title_image.width
       @img_x = (@window.width - @title_image.width * @img_size_factor) / 2
       @img_y = 20
-      # calculate menu position
-      @x = @window.width / 3 + 30
-      @y = @title_image.height
-      generate_back_board
-      generate_menu
     end
 
     # generates background board
@@ -42,6 +41,8 @@ module BTetrisKp
     # generates menu, menu items and callback procedures for menu items
     def generate_menu
       @items = []
+      @x = @window.width / 3 + 30
+      @y = @title_image.height
       n_g = proc { @window.state = GameState.new(@window, @window.width / 3, 40) }
       cr_n = proc { @window.state = NetSetupState.new(@window) }
       j_n = proc { @window.state = NetJoinState.new(@window) }
@@ -52,10 +53,12 @@ module BTetrisKp
       @items << MenuItem.new(@window, Const::MENU_QUIT, 3, exit, @font, @x, @y)
     end
 
+    # updates menu
     def update
       @items.each { |i| i.update }
     end
 
+    # draws menu
     def draw
       @board.draw
       @items.each { |i| i.draw }

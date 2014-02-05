@@ -1,4 +1,3 @@
-require 'gosu'
 require 'btetris_kp/menu'
 require 'btetris_kp/core/board'
 require 'btetris_kp/game'
@@ -87,6 +86,7 @@ module BTetrisKp
       Const::GOT_NO_MESSAGE
     end
 
+    # updates net game state
     def update
       if @winner == Const::GAME_ON
         until (m = check_msg) == Const::GOT_NO_MESSAGE
@@ -107,6 +107,7 @@ module BTetrisKp
       end
     end
 
+    # draws net game window (contains normal game + opponents board)
     def draw
       if @winner == Const::GAME_ON
         @game.draw

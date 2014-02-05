@@ -14,6 +14,12 @@ module BTetrisKp
       @board.should(be_an_instance_of Board)
     end
 
+    it 'initialization creates empty board' do
+      @board.board.each do |row| 
+        row.each { |val| val.should eq 0 }
+      end
+    end
+
     it 'can convert board to string' do
       str = @board.to_s
       str.size.should eq Const::PNR_VER * Const::PNR_HOR
@@ -56,17 +62,15 @@ module BTetrisKp
 
     it 'can insert garbage rows at the bottom of the board' do
       @board.insert_garbage!(2)
-      full = 0
-      empty = 0
-      @board.board[Const::PNR_VER - 1].each do |val|
-        if val == 0
-          empty += 1
-        else
-          full += 1
-        end
-      end
-      empty.should_not eq 0
-      full.should_not eq 0
+      @board.board[Const::PNR_VER - 1].inject(:+).should_not eq 0
+      @board.board[Const::PNR_VER - 1].include?(0).should eq true
+    end
+
+    it 'can move other rows correctly when inserting garbage rows' do
+      @board.board[Const::PNR_VER - 1][0] = 1
+      @board.board[Const::PNR_VER - 2][0].should eq 0
+      @board.insert_garbage!(1)
+      @board.board[Const::PNR_VER - 2][0].should eq 1
     end
 
     it 'can drop piece to the bottom of the board' do

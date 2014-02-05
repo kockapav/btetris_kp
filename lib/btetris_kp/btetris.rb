@@ -14,14 +14,17 @@ module BTetrisKp
       @state = MenuState.new(self)
     end
 
+    # propagates update event to current window state
     def update
       @state.update
     end
 
+    # propagates draw event to current window state
     def draw
       @state.draw
     end
 
+    # propagates button_down event to current window state
     def button_down(id)
       @state.button_down(id)
     end
