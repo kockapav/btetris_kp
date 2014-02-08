@@ -8,7 +8,7 @@ module BTetrisKp
   class NetSetupState
     def initialize(window)
       @window = window
-      @font = Gosu::Font.new(@window, Gosu.default_font_name, 40)
+      @font = Gosu::Font.new(@window, Gosu.default_font_name, Const::FONT_MED_SIZE)
       initialize_title_image
       setup_server
       @connected = false
@@ -28,7 +28,7 @@ module BTetrisKp
     # loads title image and calculates position, size variables
     def initialize_title_image
       @title_image = Gosu::Image.new(@window, Const::PATH_IMAGE_TITLE, false)
-      @img_size_factor = (@window.width - 50.0) / @title_image.width
+      @img_size_factor = (@window.width - Const::GAME_WIN_GAP).to_f / @title_image.width
       @img_x = (@window.width - @title_image.width * @img_size_factor) / 2
       @img_y = 20
     end
@@ -60,7 +60,7 @@ module BTetrisKp
     # draws net setup window
     def draw
       @font.draw(Const::SERVER_WAIT, @window.width / 5,
-                 @window.height / 2 - 60, 0)
+                 @window.height / 2 - Const::GAME_WIN_GAP, 0)
       @font.draw("#{Const::SERVER_PORT}#{@port}", @window.width / 3.5,
                  @window.height / 2, 0)
       @title_image.draw(@img_x, @img_y, 1, @img_size_factor, @img_size_factor)

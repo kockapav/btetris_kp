@@ -10,7 +10,7 @@ module BTetrisKp
   class MenuState
     def initialize(window)
       @window = window
-      @font = Gosu::Font.new(@window, Gosu.default_font_name, 30)
+      @font = Gosu::Font.new(@window, Gosu.default_font_name, Const::FONT_SMALL_SIZE)
       initialize_title_image
       generate_back_board
       generate_menu
@@ -19,7 +19,7 @@ module BTetrisKp
     # loads title image and calculates position, size variables
     def initialize_title_image
       @title_image = Gosu::Image.new(@window, Const::PATH_IMAGE_TITLE, false)
-      @img_size_factor = (@window.width - 50.0) / @title_image.width
+      @img_size_factor = (@window.width - Const::GAME_WIN_GAP).to_f / @title_image.width
       @img_x = (@window.width - @title_image.width * @img_size_factor) / 2
       @img_y = 20
     end
@@ -41,8 +41,8 @@ module BTetrisKp
     # generates menu, menu items and callback procedures for menu items
     def generate_menu
       @items = []
-      @x = @window.width / 3 + 30
-      @y = @title_image.height
+      @x = @window.width / 3 + Const::FONT_SMALL_SIZE
+      @y = @title_image.height * @img_size_factor + Const::GAME_WIN_GAP
       n_g = proc { @window.state = GameState.new(@window, @window.width / 3, 40) }
       cr_n = proc { @window.state = NetSetupState.new(@window) }
       j_n = proc { @window.state = NetJoinState.new(@window) }

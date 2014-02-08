@@ -10,7 +10,7 @@ module BTetrisKp
     def initialize(window, socket)
       @window = window
       @socket = socket
-      @font = Gosu::Font.new(@window, Gosu.default_font_name, 80)
+      @font = Gosu::Font.new(@window, Gosu.default_font_name, Const::FONT_BIG_SIZE)
       @game = GameState.new(@window, 10, 40)
       @o_board = Board.new(@window, 2 * @window.width / 3 - 10, 40)
       @winner = 0

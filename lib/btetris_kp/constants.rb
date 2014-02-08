@@ -4,11 +4,18 @@ module BTetrisKp
     # Game window Const
     GAME_WIDTH = 800
     GAME_HEIGHT = 600
+    GAME_WIN_GAP = (GAME_WIDTH * 0.075).to_i
     GAME_CAPTION = 'Battle tetris'
     PAUSE_CAPTION = 'Paused!'
     GAME_OVER_CAPTION = 'Game over!'
     GAME_WON_CAPTION = 'You WIN!'
-    GAME_LOST_CAPTION = 'You LOOSE!'
+    GAME_LOST_CAPTION = 'You LOSE!'
+
+    # Font constants
+    FONT_GAP = 5
+    FONT_SMALL_SIZE = (GAME_WIDTH * 0.035).to_i
+    FONT_MED_SIZE = (GAME_WIDTH * 0.05).to_i
+    FONT_BIG_SIZE = (GAME_WIDTH * 0.1).to_i
 
     # File paths
     PATH = File.dirname(File.expand_path(__FILE__))

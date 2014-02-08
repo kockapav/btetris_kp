@@ -10,7 +10,7 @@ module BTetrisKp
 
     def initialize(window, x, y)
       @window = window
-      @font = Gosu::Font.new(@window, Gosu.default_font_name, 80)
+      @font = Gosu::Font.new(@window, Gosu.default_font_name, Const::FONT_BIG_SIZE)
       @board = Board.new(@window, x, y)
       @paused, @game_over = false, false
       # press time, set 0 when left, right or down key is pressed

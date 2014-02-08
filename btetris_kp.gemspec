@@ -5,7 +5,7 @@ require 'btetris_kp/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "btetris_kp"
-  spec.version       = BtetrisKp::VERSION
+  spec.version       = BTetrisKp::VERSION
   spec.authors       = ["Pavel Kocka"]
   spec.email         = ["kockapav@gmail.com"]
   spec.description   = %q{Battle Tetris}
@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "gosu", "~> 0.7.50"
-  spec.add_development_dependency "rspec", "~> 2.14.1"
+  spec.add_development_dependency "rake", "~> 0"
+  spec.add_development_dependency "gosu", "~> 0.7"
+  spec.add_development_dependency "rspec", "~> 2.14"
 end

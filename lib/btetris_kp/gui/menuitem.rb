@@ -10,7 +10,7 @@ module BTetrisKp
       @font = font
       @color = Const::MENU_ITEM_CLR
       @x = x
-      @y = y + id * (@font.height + 5)
+      @y = y + id * (@font.height + Const::FONT_GAP)
     end
 
     # updates menu item, changes item color depending on mouse_over?
